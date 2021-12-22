@@ -54,29 +54,22 @@ public class Recensement {
         FileReader fileReader = new FileReader(filePath);
         BufferedReader reader = new BufferedReader(fileReader);
 
-
         // Recherche une ville suivant son nom
+        // Lecture de la 1ere ligne pour caster
+        reader.readLine();
+        Integer i = 0;
+
         while (( line = reader.readLine()) != null) {
+            ArrayList tab = new ArrayList();
             String[] morceaux = line.split(";");
-
             String nomRegion = morceaux[1];
-            String population = morceaux[7];
-//            int nbPop = Integer.parseInt(population);
-//            int population = (char) Integer.parseInt(morceaux[7]);
-//            int population = Integer.parseInt(morceaux[7].replace(" ",""));
-//            System.out.println(nbPop);
-
-// TODO COMPTER LES ELEMENTS CONTENANT LA REGION
+            String population = morceaux[7].trim().replace(" ","");
+            int nbPop = Integer.parseInt(population);
             if (Objects.equals(nomRegion, nameRegion)) {
-                String i = "";
-                i = i + population;
-//                Ville ville1 = new Ville(codeRegion, nomRegion, codeDepartement, codeCommune, nomCommune, population);
-                System.out.println("La population de la Région '" + nameRegion + "' est de : " + i);
-                break;
+                i = i + nbPop;
             }
-
         }
-
+        System.out.println("La population de la Région '" + nameRegion + "' est de : " + i);
     }
 
 
