@@ -12,22 +12,10 @@ import java.util.Scanner;
 
 public class Application {
 
-/*
- * Ce code nécessite la bibliothèque OpenCV.
- * Cliquez sur le lien ci-dessus pour la télécharger.
- *
- **/
-
-    public static void main (String[] args) throws Exception
-    {
-        String filePath = "./src/recensement_2016.csv";
-        String line = "";
-        FileReader fileReader = new FileReader(filePath);
-        BufferedReader reader = new BufferedReader(fileReader);
-
+    public static void main (String[] args) throws Exception {
         Scanner saisie = new Scanner(System.in);
-        System.out.println("Lancement de l'appli :");
-        System.out.println("Faites votre choix\n" +
+        String MENU =
+                "Faites votre choix\n" +
                 "        1. Population d’une ville donnée\n" +
                 "        2. Population d’un département donné\n" +
                 "        3. Population d’une région donnée\n" +
@@ -36,83 +24,90 @@ public class Application {
                 "        6. Afficher les 10 villes les plus peuplées d’un département\n" +
                 "        7. Afficher les 10 villes les plus peuplées d’une région\n" +
                 "        8. Afficher les 10 villes les plus peuplées de France\n" +
-                "        9. Sortir");
-        System.out.println("Quelle est votre choix ? ");
-        String str = saisie.nextLine();
-        System.out.println("Vous avez saisi : " + str);
+                "        9. Sortir\n" +
+                "Quelle est votre choix ? ";
 
-        String[] choixPossible = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9"};
+        boolean restart = true;
 
-        List<String> list = Arrays.asList(choixPossible);
+        while (restart) {
 
-        if(list.contains(str)){
+            System.out.println(MENU);
+            String str = saisie.nextLine();
+            System.out.println("Vous avez saisi : " + str);
 
-            switch (str) {
-                case "1":
-                    System.out.println("Population d'une ville");
-                    System.out.println("------------------------------");
-                    System.out.println("Quelle est le nom de la Ville recherché ? ");
-                    System.out.println("------------------------------");
-                    String nomVille = saisie.nextLine();
-                    Recensement recenseVille = new Recensement();
-                    recenseVille.popVille(nomVille);
-                    break;
+            String[] choixPossible = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9"};
 
-                case "2":
-                    System.out.println("Population d'un département");
-                    System.out.println("------------------------------");
-                    System.out.println("Quelle est le code du Département recherché ? ");
-                    System.out.println("------------------------------");
-                    String codeDpt = saisie.nextLine();
-                    Recensement recenseDpt = new Recensement();
-                    recenseDpt.popDept(codeDpt);
-                    break;
+            List<String> list = Arrays.asList(choixPossible);
 
-                case "3":
-                    System.out.println("Population d'une région");
-                    System.out.println("------------------------------");
-                    System.out.println("Quelle est le nom de la Régions recherché ? ");
-                    System.out.println("------------------------------");
-                    String nomRegion = saisie.nextLine();
-                    Recensement recenseRegion = new Recensement();
-                    recenseRegion.popRegion(nomRegion);
-                    break;
+            if (list.contains(str)) {
 
-                case "4":
-                    System.out.println("10 Regions ");
-                    System.out.println("------------------------------");
-                    System.out.println("Population des 10 région les plus peuplé");
-                    System.out.println("------------------------------");
-                    Recensement recenseRegion10 = new Recensement();
-                    recenseRegion10.topTenRegions();
-                    break;
+                switch (str) {
+                    case "1":
+                        System.out.println("Population d'une ville");
+                        System.out.println("------------------------------");
+                        System.out.println("Quelle est le nom de la Ville recherché ? ");
+                        System.out.println("------------------------------");
+                        String nomVille = saisie.nextLine();
+                        Recensement recenseVille = new Recensement();
+                        recenseVille.popVille(nomVille);
+                        break;
 
-                case "5":
-                    System.out.println("10 Departmeents ");
-                    break;
+                    case "2":
+                        System.out.println("Population d'un département");
+                        System.out.println("------------------------------");
+                        System.out.println("Quelle est le code du Département recherché ? ");
+                        System.out.println("------------------------------");
+                        String codeDpt = saisie.nextLine();
+                        Recensement recenseDpt = new Recensement();
+                        recenseDpt.popDept(codeDpt);
+                        break;
 
-                case "6":
-                    System.out.println("10 villes d'un département ");
-                    break;
+                    case "3":
+                        System.out.println("Population d'une région");
+                        System.out.println("------------------------------");
+                        System.out.println("Quelle est le nom de la Régions recherché ? ");
+                        System.out.println("------------------------------");
+                        String nomRegion = saisie.nextLine();
+                        Recensement recenseDept = new Recensement();
+                        recenseDept.popRegion(nomRegion);
+                        break;
 
-                case "7":
-                    System.out.println("10 villes d'une région ");
-                    break;
+                    case "4":
+                        System.out.println("10 Regions ");
+                        System.out.println("------------------------------");
+                        System.out.println("Population des 10 région les plus peuplé");
+                        System.out.println("------------------------------");
+                        Region region10 = new Region();
+                        region10.topTenRegions();
+                        break;
 
-                case "8":
-                    System.out.println("10 villes  + peuplé de France ");
-                    break;
+                    case "5":
+                        System.out.println("10 Departmeents ");
+                        break;
 
-                case "9":
-                    System.out.println(" Break ");
-                    break;
+                    case "6":
+                        System.out.println("10 villes d'un département ");
+                        break;
 
+                    case "7":
+                        System.out.println("10 villes d'une région ");
+                        break;
+
+                    case "8":
+                        System.out.println("10 villes  + peuplé de France ");
+                        break;
+
+                    case "9":
+                        System.out.println("Sortie de l'application");
+                        restart = false;
+                        break;
+
+                }
+            } else {
+                System.out.println("Votre saisie est incorect recommmencer");
             }
-        }
-        else {
-            System.out.println("Votre saisie est incorect recommmencer");
-        }
 
+        }
 
     }
 }
