@@ -1,28 +1,48 @@
 package fr.epsi.b3.recensement;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
 
 public class Region {
 
+    /** code de la région */
+    private String code_region;
+
+    /** nom de la région */
+    private String nom_region;
+
+    /** Population totale */
+    private Integer population_tot;
+
+    public Region(String code_region, String nom_region, Integer population_tot) {
+        this.code_region = code_region;
+        this.nom_region = nom_region;
+        this.population_tot = population_tot;
+    }
+
+    public List<Region> popRegions(Recensement sommeRegions) throws IOException {
+
+        List<Ville> mesVilles = sommeRegions.RecenseVille();
+        List<Region> maListeDeRegion = null;
+
+        Integer i = 0;
+        String tampon = "";
+
+        for (Ville ville : mesVilles) {
+
+            if (ville.getCode_region() != tampon) {
+                tampon = ville.getCode_region();
+                i = i + ville.getPopulation_tot();
+                Region Regions = new Region(ville.getCode_region(), ville.getNom_region(), i);
+                maListeDeRegion.add(Regions);
+            }
+        }
+        return maListeDeRegion;
+    }
 
 
-// TODO Méthodes pour la recherche des 10 régions les plus peuplées
-public void topTenRegions() {
-
-    Integer array[] = { 8, 77, 15, 24, 46, 13, 10 , 65 , 2, 99 };
-
-    //        Calcul de la population de chaque Régions
-
-    //        Comparaison
-
-    //        Tri
-    Arrays.sort(array, Collections.reverseOrder());
-    //        Affichage
-    System.out.println("Les 10 Régions les plus peuplés sont :");
-
-    for (int i = 0; array.length > i  ; i++ )
-        System.out.println("numéro "+ (i+1) +" : " + array[i]);
-}
 
 }

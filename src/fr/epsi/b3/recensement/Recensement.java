@@ -17,7 +17,7 @@ public class Recensement {
         this.villes = villes;
     }
 
-    private List<Ville> RecenseVille() throws IOException {
+    public List<Ville> RecenseVille() throws IOException {
         // Colonnes du fichiers CSV ( index correspondant )
         final int ind_codeRegion = 0;
         final int ind_nomRegion = 1;
@@ -57,20 +57,20 @@ public class Recensement {
 
     public void popVille(String nomVille) throws IOException {
 
-       List<Ville> sommeVilles =  RecenseVille();
-       String chaine = "";
+        List<Ville> sommeVilles =  RecenseVille();
+        String chaine = "";
 
-       for (Ville ville : sommeVilles) {
+        for (Ville ville : sommeVilles) {
             if (Objects.equals(ville.getNom_commune(), nomVille)) {
                 chaine = "La population de la ville '" + nomVille + "' est de : " + ville.getPopulation_tot();
             }
         }
-       if ( chaine.isEmpty() ) {
-           System.out.println("Le nom de la ville saisie est introuvable");
-       }
-       else {
-           System.out.println(chaine);
-       }
+        if ( chaine.isEmpty() ) {
+            System.out.println("Le nom de la ville saisie est introuvable");
+        }
+        else {
+            System.out.println(chaine);
+        }
     }
 
     public void popRegion(String nomRegion) throws IOException {
@@ -91,6 +91,7 @@ public class Recensement {
         else {
             System.out.println(chaine);
         }
+
     }
 
     public void popDept(String codeDept) throws IOException {
@@ -112,6 +113,35 @@ public class Recensement {
             System.out.println(chaine);
         }
     }
+    // TODO Méthodes pour la recherche des 10 régions les plus peuplées
+    public void topTenRegions() throws IOException {
+
+//        Integer array[] = { 8, 77, 15, 24, 46, 13, 10 , 65 , 2, 99 };
+        Set<String> array = new HashSet<String>();
+        List<Ville> sommeVille=  RecenseVille();
+        List<Integer> populationRegion = new ArrayList<>();
+
+        for (Ville ville : sommeVille)
+            array.add(ville.getNom_region());
+
+        System.out.println(array);
+        //        Calcul de la population de chaque Régions
+
+        for (String nomRegion : array)
+//           populationRegion.add(popRegion(nomRegion);
+           popRegion(nomRegion);
+
+        //        Comparaison
+
+        //        Tri
+//        Arrays.sort(array, Collections.reverseOrder());
+//        //        Affichage
+//        System.out.println("Les 10 Régions les plus peuplés sont :");
+//
+//        for (int i = 0; array.length > i  ; i++ )
+//            System.out.println("numéro "+ (i+1) +" : " + array[i]);
+    }
+
 
 
 

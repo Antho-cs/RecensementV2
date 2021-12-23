@@ -65,7 +65,7 @@ public class Application {
                     case "3":
                         System.out.println("Population d'une région");
                         System.out.println("------------------------------");
-                        System.out.println("Quelle est le nom de la Régions recherché ? ");
+                        System.out.println("Quel est le nom de la Région recherché ? ");
                         System.out.println("------------------------------");
                         String nomRegion = saisie.nextLine();
                         Recensement recenseDept = new Recensement();
@@ -77,12 +77,18 @@ public class Application {
                         System.out.println("------------------------------");
                         System.out.println("Population des 10 région les plus peuplé");
                         System.out.println("------------------------------");
-                        Region region10 = new Region();
+                        Recensement region10 = new Recensement();
                         region10.topTenRegions();
+
                         break;
 
                     case "5":
                         System.out.println("10 Departmeents ");
+                        System.out.println("------------------------------");
+                        System.out.println("Population des 10 Départements les plus peuplé");
+                        System.out.println("------------------------------");
+                        Departement monDept = new Departement();
+                        System.out.println(monDept.recenseDept());
                         break;
 
                     case "6":
