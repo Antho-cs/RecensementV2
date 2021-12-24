@@ -55,94 +55,117 @@ public class Recensement {
     }
 
 
-    public void popVille(String nomVille) throws IOException {
+    public Integer popVille(String nomVille) throws IOException {
 
         List<Ville> sommeVilles =  RecenseVille();
         String chaine = "";
 
         for (Ville ville : sommeVilles) {
             if (Objects.equals(ville.getNom_commune(), nomVille)) {
-                chaine = "La population de la ville '" + nomVille + "' est de : " + ville.getPopulation_tot();
+                return ville.getPopulation_tot();
             }
+
         }
-        if ( chaine.isEmpty() ) {
-            System.out.println("Le nom de la ville saisie est introuvable");
-        }
-        else {
-            System.out.println(chaine);
-        }
+        return 0;
     }
 
-    public void popRegion(String nomRegion) throws IOException {
+    public Integer popRegion(String nomRegion) throws IOException {
 
         List<Ville> sommeRegions =  RecenseVille();
-        String chaine = "";
         Integer i = 0;
 
         for (Ville ville : sommeRegions) {
             if (Objects.equals(ville.getNom_region(), nomRegion)) {
                 i = i + ville.getPopulation_tot();
-                chaine = "La population de la ville '" + nomRegion + "' est de : " + i;
             }
         }
-        if ( chaine.isEmpty() ) {
-            System.out.println("Le nom de la Régions saisie est introuvable");
-        }
-        else {
-            System.out.println(chaine);
-        }
-
+        return i;
     }
 
-    public void popDept(String codeDept) throws IOException {
+    public Integer popDept(String codeDept) throws IOException {
 
         List<Ville> sommeDept =  RecenseVille();
-        String chaine = "";
         Integer i = 0;
 
         for (Ville ville : sommeDept) {
             if (Objects.equals(ville.getCode_dpt(), codeDept)) {
                 i = i + ville.getPopulation_tot();
-                chaine = "La population du Département '" + codeDept  + "' est de : " + i;
+
             }
         }
-        if ( chaine.isEmpty() ) {
-            System.out.println("Le nom de la Régions saisie est introuvable");
-        }
-        else {
-            System.out.println(chaine);
-        }
+        return i;
     }
-    // TODO Méthodes pour la recherche des 10 régions les plus peuplées
-    public void topTenRegions() throws IOException {
 
-//        Integer array[] = { 8, 77, 15, 24, 46, 13, 10 , 65 , 2, 99 };
-        Set<String> array = new HashSet<String>();
+    // Méthodes pour la recherche des 10 régions les plus peuplées
+    public ArrayList<Region> topTenRegions() throws IOException {
+
         List<Ville> sommeVille=  RecenseVille();
-        List<Integer> populationRegion = new ArrayList<>();
+        List<String> tabNom = new ArrayList<>();
+        List<Region> populationRegion = new ArrayList<>();
+        ArrayList<Region> tab10Region = new ArrayList<>();
+        final Integer top10 = 10;
 
-        for (Ville ville : sommeVille)
-            array.add(ville.getNom_region());
+        // Evite les doublons et récupere le nom de chaque régions
+        for (int i=0; i < sommeVille.size(); i++) {
 
-        System.out.println(array);
-        //        Calcul de la population de chaque Régions
+            if (tabNom.contains( sommeVille.get(i).getNom_region() ) ) {
+                // Oui c'est vide car il ne faut rien faire
+            }
+            else {
+                tabNom.add(sommeVille.get(i).getNom_region());
+            }
+        }
 
-        for (String nomRegion : array)
-//           populationRegion.add(popRegion(nomRegion);
-           popRegion(nomRegion);
+        // Calcul de la population de chaque Régions
+        for(int i=0; i< tabNom.size(); i++) {
+            Region maRegion = new Region(tabNom.get(i),popRegion(tabNom.get(i)));
+            populationRegion.add(maRegion);
+        }
+        // Méthodes de comparaison de la population d'une Régions de façon décroissante.
+        Collections.sort(populationRegion, new PopulationRegionComparateur().reversed() );
+        // N'afficher que les 10 Régions les plus peuplés
 
-        //        Comparaison
-
-        //        Tri
-//        Arrays.sort(array, Collections.reverseOrder());
-//        //        Affichage
-//        System.out.println("Les 10 Régions les plus peuplés sont :");
-//
-//        for (int i = 0; array.length > i  ; i++ )
-//            System.out.println("numéro "+ (i+1) +" : " + array[i]);
+        for( int i = 0; i < top10 ; i++ ) {
+            tab10Region.add(populationRegion.get(i));
+        }
+        return tab10Region;
     }
 
+    // Méthodes pour la recherche des 10 régions les plus peuplées
+    public ArrayList<Departement> topTenDept() throws IOException {
 
+        List<Ville> sommeVille=  RecenseVille();
+        List<String> tabNom = new ArrayList<>();
+        List<Departement> populationDept = new ArrayList<>();
+        ArrayList<Departement> tab10Dept = new ArrayList<>();
+        final Integer top10 = 10;
+
+        // Evite les doublons et récupere le nom de chaque régions
+        for (int i=0; i < sommeVille.size(); i++) {
+
+            if (tabNom.contains( sommeVille.get(i).getCode_dpt() ) ) {
+                // Oui c'est vide car il ne faut rien faire
+            }
+            else {
+                tabNom.add(sommeVille.get(i).getCode_dpt());
+            }
+        }
+
+        // Calcul de la population de chaque Régions
+        for(int i=0; i< tabNom.size(); i++) {
+            // On instancie un nouvel Objet avec son nom et la méthodes de calcul de population suivant son nom
+            Departement monDept = new Departement(tabNom.get(i),popDept(tabNom.get(i)));
+            populationDept.add(monDept);
+        }
+        // Méthodes de comparaison de la population d'une Régions de façon décroissante.
+        Collections.sort(populationDept, new PopulationDeptComparateur().reversed() );
+        // N'afficher que les 10 Régions les plus peuplés
+
+        for( int i = 0; i < top10 ; i++ ) {
+            tab10Dept.add(populationDept.get(i));
+        }
+        return tab10Dept;
+    }
 
 
     @Override

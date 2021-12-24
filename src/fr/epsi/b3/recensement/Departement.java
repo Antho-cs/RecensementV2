@@ -11,11 +11,39 @@ public class Departement {
 //    TODO Méthodes pour la recherche des 10 départements les plus peuplées
 
     private List<Ville> villes = new ArrayList<>();
-
     public List<Ville> getVilles() {
         return villes;
     }
 
+    /** code du Département */
+    private String code_dpt;
+
+    /** Population totale */
+    private Integer population_tot;
+
+    public Departement() {
+    }
+
+    public Departement(String code_dpt, Integer population_tot) {
+        this.code_dpt = code_dpt;
+        this.population_tot = population_tot;
+    }
+
+    public String getCode_dpt() {
+        return code_dpt;
+    }
+
+    public void setCode_dpt(String code_dpt) {
+        this.code_dpt = code_dpt;
+    }
+
+    public Integer getPopulation_tot() {
+        return population_tot;
+    }
+
+    public void setPopulation_tot(Integer population_tot) {
+        this.population_tot = population_tot;
+    }
 
     public List<Ville> RecenseVille() throws IOException {
         // Colonnes du fichiers CSV ( index correspondant )
