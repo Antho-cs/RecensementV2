@@ -1,9 +1,5 @@
 package fr.epsi.b3.recensement;
 
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.util.*;
 
 
@@ -12,6 +8,7 @@ public class Application {
     public static void main (String[] args) throws Exception {
         Scanner saisie = new Scanner(System.in);
         String MENU =
+                "-----------------------------------------------------------------------\n" +
                 "Faites votre choix\n" +
                         "        1. Population d’une ville donnée\n" +
                         "        2. Population d’un département donné\n" +
@@ -45,7 +42,7 @@ public class Application {
                         System.out.println("Quelle est le nom de la Ville recherché ? ");
                         System.out.println("------------------------------");
                         String nomVille = saisie.nextLine();
-                        Recensement recenseVille = new Recensement();
+                        Ville recenseVille = new Ville();
                         Integer popVille = recenseVille.popVille(nomVille);
                         if (popVille != 0) {
                             System.out.println("La population de la ville '" + nomVille + "' est de : " + popVille);
@@ -61,7 +58,7 @@ public class Application {
                         System.out.println("Quel est le code du Département recherché ? ");
                         System.out.println("------------------------------");
                         String codeDpt = saisie.nextLine();
-                        Recensement recenseDpt = new Recensement();
+                        Departement recenseDpt = new Departement();
                         Integer resultat = recenseDpt.popDept(codeDpt);
 
                         if (resultat != 0) {
@@ -78,7 +75,7 @@ public class Application {
                         System.out.println("Quel est le nom de la Région recherché ? ");
                         System.out.println("------------------------------");
                         String nomRegion = saisie.nextLine();
-                        Recensement recenseDept = new Recensement();
+                        Region recenseDept = new Region();
                         Integer popRegion = recenseDept.popRegion(nomRegion);
 
                         if (popRegion != 0) {
@@ -90,11 +87,10 @@ public class Application {
                         break;
 
                     case "4":
-                        System.out.println("10 Regions ");
                         System.out.println("------------------------------");
                         System.out.println("Population des 10 région les plus peuplé");
                         System.out.println("------------------------------");
-                        Recensement region10 = new Recensement();
+                        Region region10 = new Region();
                         ArrayList<Region> top10Regions = region10.topTenRegions();
 
                         for( int i = 0; i < top10Regions.size() ; i++ ) {
@@ -103,20 +99,26 @@ public class Application {
                         break;
 
                     case "5":
-                        System.out.println("10 Départements ");
                         System.out.println("------------------------------");
                         System.out.println("Population des 10 Départements les plus peuplé");
                         System.out.println("------------------------------");
-                        Recensement Dept10 = new Recensement();
+                        Departement Dept10 = new Departement();
                         ArrayList<Departement> top10Dept = Dept10.topTenDept();
 
                         for( int i = 0; i < top10Dept.size() ; i++ ) {
-                            System.out.println("Le Département le plus peuplé numéro "+ (i + 1) +" à le code Départment numéro : "+ top10Dept.get(i).getCode_dpt()+ " avec une population de "+ top10Dept.get(i).getPopulation_tot());
+                            System.out.println("Le Département le plus peuplé numéro "+ (i + 1) +" à le code Département numéro : "+ top10Dept.get(i).getCode_dpt()+ " avec une population de "+ top10Dept.get(i).getPopulation_tot());
                         }
                         break;
 
                     case "6":
                         System.out.println("10 villes d'un département ");
+                        System.out.println("------------------------------");
+                        System.out.println("Quel est le code du Département recherché ? ");
+                        System.out.println("------------------------------");
+                        String codeDpt10 = saisie.nextLine();
+                        Departement ville10Dept = new Departement();
+                        ArrayList<Ville> top10VilleDept = ville10Dept.topTenVillesDept(codeDpt10);
+                        System.out.println(top10VilleDept);
                         break;
 
                     case "7":

@@ -1,5 +1,9 @@
 package fr.epsi.b3.recensement;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Objects;
+
 public class Ville {
     /** code de la région */
     private String code_region;
@@ -50,6 +54,23 @@ public class Ville {
 
     public Integer getPopulation_tot() {
         return population_tot;
+    }
+
+    public Ville() {
+    }
+
+    public Integer popVille(String nomVille) throws IOException {
+
+        Recensement recensement = new Recensement();
+        List<Ville> sommeVilles =  recensement.RecenseVille();
+
+        for (Ville ville : sommeVilles) {
+            if (Objects.equals(ville.getNom_commune(), nomVille)) {
+                return ville.getPopulation_tot();
+            }
+
+        }
+        return 0;
     }
 
     @Override
