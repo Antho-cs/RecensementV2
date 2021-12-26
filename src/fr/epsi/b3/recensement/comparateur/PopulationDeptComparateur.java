@@ -1,7 +1,12 @@
-package fr.epsi.b3.recensement;
+package fr.epsi.b3.recensement.comparateur;
+
+import fr.epsi.b3.recensement.Departement;
 
 import java.util.Comparator;
-
+/**
+ * Classe de Comparaison d'un Département
+ * @author Anthony Cornilleau
+ */
 public class PopulationDeptComparateur implements Comparator<Departement> {
 
     @Override

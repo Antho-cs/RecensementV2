@@ -9,3 +9,10 @@ out/production/RecensementV2/fr/epsi/b3/recensement/PopulationRegionComparateur.
 out/production/RecensementV2/fr/epsi/b3/recensement/Recensement.class
 out/production/RecensementV2/fr/epsi/b3/recensement/Region.class
 out/production/RecensementV2/fr/epsi/b3/recensement/Ville.class
+out/production/RecensementV2/fr/epsi/b3/recensement/comparateur/PopulationVilleComparateur.class
+out/production/RecensementV2/fr/epsi/b3/recensement/Application.class
+out/production/RecensementV2/fr/epsi/b3/recensement/comparateur/PopulationDeptComparateur.class
+out/production/RecensementV2/fr/epsi/b3/recensement/comparateur/PopulationRegionComparateur.class
+.idea/uiDesigner.xml
+.idea/inspectionProfiles/Project_Default.xml
+.idea/uiDesigner.xml

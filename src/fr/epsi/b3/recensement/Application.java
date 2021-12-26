@@ -2,7 +2,11 @@ package fr.epsi.b3.recensement;
 
 import java.util.*;
 
-
+/**
+ * Classe Application
+ * Sert à construire toute l'application.
+ * @author Anthony Cornilleau
+ */
 public class Application {
 
     public static void main (String[] args) throws Exception {
@@ -88,19 +92,19 @@ public class Application {
 
                     case "4":
                         System.out.println("------------------------------");
-                        System.out.println("Population des 10 région les plus peuplé");
+                        System.out.println("Population des 10 région les plus peuplées");
                         System.out.println("------------------------------");
                         Region region10 = new Region();
                         ArrayList<Region> top10Regions = region10.topTenRegions();
 
                         for( int i = 0; i < top10Regions.size() ; i++ ) {
-                            System.out.println("La région la plus peuplé numéro "+ (i + 1) +" : "+ top10Regions.get(i).getNom_region()+ " avec une population de "+ top10Regions.get(i).getPopulation_tot());
+                            System.out.println("La région la plus peuplée numéro "+ (i + 1) +" : "+ top10Regions.get(i).getNom_region()+ " avec une population de "+ top10Regions.get(i).getPopulation_tot());
                         }
                         break;
 
                     case "5":
                         System.out.println("------------------------------");
-                        System.out.println("Population des 10 Départements les plus peuplé");
+                        System.out.println("Population des 10 Départements les plus peuplées");
                         System.out.println("------------------------------");
                         Departement Dept10 = new Departement();
                         ArrayList<Departement> top10Dept = Dept10.topTenDept();
@@ -118,15 +122,45 @@ public class Application {
                         String codeDpt10 = saisie.nextLine();
                         Departement ville10Dept = new Departement();
                         ArrayList<Ville> top10VilleDept = ville10Dept.topTenVillesDept(codeDpt10);
-                        System.out.println(top10VilleDept);
+                        if (!top10VilleDept.isEmpty()) {
+                        for( int i = 0; i < top10VilleDept.size() ; i++ ) {
+                            System.out.println("La Ville la plus peuplée numéro "+ (i + 1) +" est : "+ top10VilleDept.get(i).getNom_commune()+ " avec une population de "+ top10VilleDept.get(i).getPopulation_tot());
+                        } }
+                        else {
+                            System.out.println("Le code Département "+ codeDpt10 + "n'est pas référencé dans nos fichiers");
+                        }
                         break;
 
                     case "7":
-                        System.out.println("10 villes d'une région ");
+                        System.out.println("10 villes  d'une région ");
+                        System.out.println("------------------------------");
+                        System.out.println("Quel est la Région recherché ? ");
+                        System.out.println("------------------------------");
+                        String codeRg10 = saisie.nextLine();
+                        Region ville10Region = new Region();
+                        ArrayList<Ville> top10VilleReg = ville10Region.topTenVillesRegion(codeRg10);
+                        if (!top10VilleReg.isEmpty()) {
+                            for( int i = 0; i < top10VilleReg.size() ; i++ ) {
+                                System.out.println("La Ville la plus peuplé numéro "+ (i + 1) +" est : "+ top10VilleReg.get(i).getNom_commune()+ " avec une population de "+ top10VilleReg.get(i).getPopulation_tot());
+                            } }
+                        else {
+                            System.out.println("Le code Département "+ codeRg10 + "n'est pas référencé dans nos fichiers");
+                        }
                         break;
 
                     case "8":
-                        System.out.println("10 villes  + peuplé de France ");
+                        System.out.println("------------------------------");
+                        System.out.println("Les 10 villes les plus peuplées de France ");
+                        System.out.println("------------------------------");
+                        Ville top10Villes = new Ville();
+                        ArrayList<Ville> top10VilleFR = top10Villes.topTenVillesFr();
+                        if (!top10VilleFR.isEmpty()) {
+                            for( int i = 0; i < top10VilleFR.size() ; i++ ) {
+                                System.out.println("La Ville la plus peuplée numéro "+ (i + 1) +" est : "+ top10VilleFR.get(i).getNom_commune()+ " avec une population de "+ top10VilleFR.get(i).getPopulation_tot());
+                            } }
+                        else {
+                            System.out.println("Aucune ville n'est présente dans le fichier.");
+                        }
                         break;
 
                     case "9":
