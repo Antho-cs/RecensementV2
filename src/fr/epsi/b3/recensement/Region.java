@@ -90,10 +90,8 @@ public class Region {
             Region maRegion = new Region(tabNom.get(i),popRegion(tabNom.get(i)));
             tabRegion.add(maRegion);
         }
-        System.out.println(tabRegion);
         // Méthodes de comparaison de la population d'une Région et de tri de façon décroissante.
         tabRegion.sort(new PopulationRegionComparateur().reversed());
-        System.out.println(tabRegion);
 
         // Ajoute les 10 Régions les plus peuplés dans un tableau.
         for( int i = 0; i < limit ; i++ ) {
